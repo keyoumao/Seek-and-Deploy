@@ -1,6 +1,5 @@
-let city = 'Chicago'
-
-let url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=imperial`
+// let city = 'Chicago'
+// let url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=imperial`
 
 function buildTable(dates, temps, humidities, pressures, windSpeeds, windDirections) {
   var table = d3.select("#summary-table");
@@ -17,7 +16,7 @@ function buildTable(dates, temps, humidities, pressures, windSpeeds, windDirecti
   }
 }
 
-d3.json(url).then(function(data) { 
+d3.json('data/forecast.json').then(function(data) { 
   console.log(data);
 
   d3.select("title").text(`${data.city.name} 5-day Forecast`)
@@ -58,14 +57,12 @@ d3.json(url).then(function(data) {
       type: "date"
     },
     yaxis: {
-      type: "linear",
-      tickformat: () => x => x + '°'
+      type: "linear"
     },
     showlegend: false
   };
 
   Plotly.newPlot("plot", plotData, layout);
-
 
   buildTable(dates, temps, humidities, pressures, windSpeeds, windDirections);
 })
